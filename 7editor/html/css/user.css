@@ -1,0 +1,33 @@
+@charset "UTF-8";
+/* clearfix */
+/* 箭头
+arrow(direction,
+size,
+color);
+*/
+.clearfix { *height: 1%; }
+.clearfix:after { clear: both; content: '.'; display: block; height: 0; line-height: 0; overflow: hidden; }
+
+.warrp { max-width: 640px; margin: 0 auto; }
+@media (min-width: 320px) and (max-width: 480px) { .warrp { width: 320px; }
+  .warrp .user-card-info { width: 220px; } }
+@media (min-width: 480px) and (max-width: 640px) { .warrp { width: 480px; }
+  .warrp .user-card-info { width: 380px; } }
+@media (min-width: 640px) { .warrp { width: 640px; }
+  .warrp .user-card-info { width: 540px; } }
+
+.user-card { margin-top: 15px; }
+.user-card .user-card-warrp { height: 160px; position: relative; border: 1px solid #ccc; border-radius: 8px; text-align: center; }
+.user-card .user-card-warrp .user-card-holder { text-align: left; width: 90%; margin: 5% auto; }
+.user-card .user-card-warrp .user-card-holder .user-card-photo { width: 100px; height: 100px; overflow: hidden; border-radius: 50%; float: left; }
+.user-card .user-card-warrp .user-card-holder .user-card-photo img { width: 100%; height: 100%; border: 1px solid #ccc; }
+.user-card .user-card-warrp .user-card-holder .user-card-info { float: right; height: 100px; position: absolute; left: 130px; top: 40px; color: #999; }
+.user-card .user-card-warrp .user-card-holder .user-card-info .user-card-name { color: #000; font-size: 16px; height: 32px; line-height: 32px; }
+.user-card .user-card-warrp .user-card-container { text-align: center; }
+.user-card .user-card-warrp .user-card-container .user-card-my { width: 90%; margin: 5% auto; height: 34px; margin-top: 8px; overflow: hidden; text-align: center; }
+.user-card .user-card-warrp .user-card-container .user-card-my li { float: left; height: 34px; line-height: 34px; width: 33%; text-align: center; position: relative; }
+.user-card .user-card-warrp .user-card-container .user-card-my li:after { content: "|"; position: absolute; right: 0px; height: 34px; line-height: 34px; }
+.user-card .user-card-warrp .user-card-container .user-card-my li:last-child:after { content: ''; }
+.user-card .user-card-warrp .user-card-container .user-card-my li a { color: #999; }
+
+/*# sourceMappingURL=user.css.map */
