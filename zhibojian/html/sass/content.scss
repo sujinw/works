@@ -1,0 +1,103 @@
+
+$titleBeforeColor:#ffaa00;
+$fontColor:#999;
+.page-container{
+	background:#f3f3f3;
+}
+.box{
+	background:#fefefe;
+}
+.section-title{
+	height:32px;
+	line-height:32px;
+	position:relative;
+	padding-left:18px;
+	&:after{
+		content:"";
+		height:20px;
+		width:5px;
+		position:absolute;
+		top:6px;
+		left:10px;
+		background:$titleBeforeColor;
+	}
+	h3{
+		font-size:16px;
+	}
+}
+.section-list-warrp{
+	position:relative;
+	height:120px;
+	#btn-to-left{
+		position:absolute;
+		right:0px;
+		top:26px;
+		width:16px;
+		height:28px;
+		z-index:1001;
+		background:url('../images/arrow_right.png') no-repeat;
+	}
+	.section-list{
+		position:absolute;
+		left:10px;
+		top:0;
+		height:90%;
+		overflow:hidden;
+		li{
+			float:left;
+			text-align:center;
+			width:20%;
+			margin:13px 1% 13px 1%;
+			overflow:hidden;
+			.teacher-name{
+				color:$fontColor;
+			}
+			img{
+				width:100%;
+				height:100%;
+				max-height:70px;
+				max-width:70px;
+			}
+		}
+	}
+	.auditorium-section-list{
+		width:100%;
+		margin:0 auto;
+		li{
+			width:44%;
+			border:1px solid #ccc;
+			overflow:hidden;
+			float:left;
+			margin-left:10px;
+			margin-bottom:10px;
+			position:relative;
+			img{
+				width:100%;
+			}
+			.teacher-name{
+				padding:8px;
+				height:28px;
+				line-height:28px;
+				text-align:center;
+			}
+			.list-title{
+				height:28px;
+				line-height:28px;
+				position:absolute;
+				bottom:45px;
+				left:0;
+				width:100%;
+				text-align:center;
+				color:#fff;
+				background:rgba(0,0,0,.4);
+			}
+		}
+	}
+
+
+}
+.famous-teacher{
+	padding:10px;
+
+
+}
