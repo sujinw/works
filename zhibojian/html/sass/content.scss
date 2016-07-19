@@ -1,6 +1,54 @@
 
 $titleBeforeColor:#ffaa00;
 $fontColor:#999;
+//mixin
+@mixin border-radius($radius) {
+  -webkit-border-radius: $radius;
+     -moz-border-radius: $radius;
+      -ms-border-radius: $radius;
+          border-radius: $radius;
+}
+//media
+$breakpoints: (
+  'sm': 'only screen and  (min-width: 480px)',
+  'md': 'only screen and ( min-width: 768px)',
+  'lg': 'only screen and ( min-width: 992px)'
+) !default;
+//long shadow
+@function makelongshadow($color) {
+  $val: 0px 0px $color;
+  @for $i from 1 through 200 {
+    $val: #{$val}, #{$i}px #{$i}px #{$color};
+  }
+  @return $val;
+}
+
+@mixin longshadow($color) {
+  text-shadow: makelongshadow($color);
+}
+
+@mixin respond-to($breakpoint) {
+  $query: map-get($breakpoints, $breakpoint);
+  
+  @if not $query {
+    @error 'No value found for `#{$breakpoint}`. Please make sure it is defined in `$breakpoints` map.';
+  }
+
+  @media #{if(type-of($query) == 'string', unquote($query), inspect($query))} {
+    @content;
+  }
+}
+//clear  fixed
+@mixin clearfix() {
+    &:before,
+    &:after {
+        content: "";
+        display: table;
+    }
+    &:after {
+        clear: both;
+    }
+}
 .page-container{
 	background:#f3f3f3;
 }
@@ -65,39 +113,76 @@ $fontColor:#999;
 		margin:0 auto;
 		li{
 			width:44%;
-			border:1px solid #ccc;
 			overflow:hidden;
 			float:left;
-			margin-left:10px;
-			margin-bottom:10px;
+			padding:8px;
 			position:relative;
-			img{
-				width:100%;
+			&:nth-of-type(2n){
+				border-left:1px solid #ccc;
 			}
+			&:nth-of-type(1){
+				border-bottom:1px solid #ccc;
+			}
+			&:nth-of-type(2){
+				border-bottom:1px solid #ccc;
+			}
+			a{
+				width:100%;
+				overflow:hidden;
+				position: relative;
+				img{
+					width:100%;
+				}
+				.list-title{
+					height:28px;
+					line-height:28px;
+					position:absolute;
+					bottom:2px;
+					left:0;
+					width:100%;
+					text-align:center;
+					color:#fff;
+					background:rgba(0,0,0,.4);
+				}
+			}
+			
 			.teacher-name{
 				padding:8px;
 				height:28px;
 				line-height:28px;
 				text-align:center;
 			}
-			.list-title{
-				height:28px;
-				line-height:28px;
+			
+		}
+	}
+	/*past class*/
+	.class-list{
+
+		.class-item{
+			height:68px;
+			overflow:hidden;
+			position: relative;
+			border-bottom:1px solid #ccc;
+			.class-img{
+				width:80px;
+				height:60px;
+				overflow:hidden;
+				img{
+					width:100%;
+					height:100%;
+				}
+			}
+			.class-info{
 				position:absolute;
-				bottom:45px;
-				left:0;
-				width:100%;
-				text-align:center;
-				color:#fff;
-				background:rgba(0,0,0,.4);
+				top:5px;
+				left:86px;
 			}
 		}
 	}
 
 
 }
-.famous-teacher{
+.famous-teacher,.auditorium,.past-class{
+	@include clearfix;
 	padding:10px;
-
-
 }
