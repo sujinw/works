@@ -1,4 +1,5 @@
-.page-container { background: #f3f3f3; }
+@charset "UTF-8";
+.page-container { background: #f3f3f3; position: relative; }
 
 .box { background: #fefefe; }
 
@@ -6,14 +7,14 @@
 .section-title:after { content: ""; height: 20px; width: 5px; position: absolute; top: 6px; left: 10px; background: #ffaa00; }
 .section-title h3 { font-size: 16px; }
 
-.section-list-warrp { position: relative; height: 120px; /*past class*/ }
-.section-list-warrp #btn-to-left { position: absolute; right: 0px; top: 26px; width: 16px; height: 28px; z-index: 1001; background: url("../images/arrow_right.png") no-repeat; }
+.section-list-warrp { position: relative; /*past class*/ /*foot-bar*/ }
+.section-list-warrp #btn-to-left { position: absolute; right: 0px; top: 40px; width: 16px; height: 28px; z-index: 1001; background: url("../images/arrow_right.png") no-repeat; }
 .section-list-warrp .section-list { position: absolute; left: 10px; top: 0; height: 90%; overflow: hidden; }
 .section-list-warrp .section-list li { float: left; text-align: center; width: 20%; margin: 13px 1% 13px 1%; overflow: hidden; }
 .section-list-warrp .section-list li .teacher-name { color: #999; }
 .section-list-warrp .section-list li img { width: 100%; height: 100%; max-height: 70px; max-width: 70px; }
 .section-list-warrp .auditorium-section-list { width: 100%; margin: 0 auto; }
-.section-list-warrp .auditorium-section-list li { width: 44%; overflow: hidden; float: left; padding: 8px; position: relative; }
+.section-list-warrp .auditorium-section-list li { width: 44%; overflow: hidden; float: left; padding: 8px; }
 .section-list-warrp .auditorium-section-list li:nth-of-type(2n) { border-left: 1px solid #ccc; }
 .section-list-warrp .auditorium-section-list li:nth-of-type(1) { border-bottom: 1px solid #ccc; }
 .section-list-warrp .auditorium-section-list li:nth-of-type(2) { border-bottom: 1px solid #ccc; }
@@ -21,13 +22,29 @@
 .section-list-warrp .auditorium-section-list li a img { width: 100%; }
 .section-list-warrp .auditorium-section-list li a .list-title { height: 28px; line-height: 28px; position: absolute; bottom: 2px; left: 0; width: 100%; text-align: center; color: #fff; background: rgba(0, 0, 0, 0.4); }
 .section-list-warrp .auditorium-section-list li .teacher-name { padding: 8px; height: 28px; line-height: 28px; text-align: center; }
-.section-list-warrp .class-list .class-item { height: 68px; overflow: hidden; position: relative; border-bottom: 1px solid #ccc; }
+.section-list-warrp .class-list .class-item { height: 78px; padding-top: 8px; overflow: hidden; position: relative; border-bottom: 1px solid #ccc; }
 .section-list-warrp .class-list .class-item .class-img { width: 80px; height: 60px; overflow: hidden; }
 .section-list-warrp .class-list .class-item .class-img img { width: 100%; height: 100%; }
 .section-list-warrp .class-list .class-item .class-info { position: absolute; top: 5px; left: 86px; }
+.section-list-warrp .class-list .class-item .class-info .class-info-title { height: 30px; line-height: 30px; font-size: 16px; font-weight: 500; word-break: keep-all; /* 不换行 */ white-space: nowrap; /* 不换行 */ overflow: hidden; }
+.section-list-warrp .class-list .class-item .class-info .class-info-cont { color: #999; font-size: 12px; height: 24px; line-height: 24px; word-break: keep-all; /* 不换行 */ white-space: nowrap; /* 不换行 */ overflow: hidden; }
+.section-list-warrp .class-list .class-item .class-info .class-info-cont .list-teacher { position: absolute; bottom: -24px; left: 40px; font-size: 16px; color: #ffaa00; }
+.section-list-warrp .foot-bar-list { height: 54px; overflow: hidden; }
+.section-list-warrp .foot-bar-list .foot-bar-item { float: left; width: 20%; text-align: center; position: relative; }
+.section-list-warrp .foot-bar-list .foot-bar-item i { display: block; width: 42px; height: 36px; position: absolute; left: 50%; margin-left: -18px; background-color: red; }
+.section-list-warrp .foot-bar-list .foot-bar-item .card { background: url("../images/card.png") no-repeat; }
+.section-list-warrp .foot-bar-list .foot-bar-item .room { background: url("../images/room.png") no-repeat; }
+.section-list-warrp .foot-bar-list .foot-bar-item .teacher { background: url("../images/teacher.png") no-repeat; }
+.section-list-warrp .foot-bar-list .foot-bar-item .wangqi { background: url("../images/wangqi.png") no-repeat; }
+.section-list-warrp .foot-bar-list .foot-bar-item .zhibo { background: url("../images/zhibo.png") no-repeat; }
+.section-list-warrp .foot-bar-list .foot-bar-item .foot-txt { display: block; width: 100%; height: 28px; text-align: center; padding-top: 40px; color: #999; }
 
-.famous-teacher, .auditorium, .past-class { padding: 10px; }
-.famous-teacher:before, .famous-teacher:after, .auditorium:before, .auditorium:after, .past-class:before, .past-class:after { content: ""; display: table; }
-.famous-teacher:after, .auditorium:after, .past-class:after { clear: both; }
+.famous-teacher, .auditorium, .past-class, .foot-bar { clear: both; padding: 10px; }
+.famous-teacher:before, .famous-teacher:after, .auditorium:before, .auditorium:after, .past-class:before, .past-class:after, .foot-bar:before, .foot-bar:after { content: ""; display: block; clear: both; }
+.famous-teacher:after, .auditorium:after, .past-class:after, .foot-bar:after { clear: both; }
+
+.class-add-more { height: 75px; line-height: 75px; text-align: center; color: #999; }
+
+.foot-bar { position: fixed; bottom: 0; left: 0; width: 100%; }
 
 /*# sourceMappingURL=content.css.map */

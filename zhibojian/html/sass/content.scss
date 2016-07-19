@@ -43,7 +43,8 @@ $breakpoints: (
     &:before,
     &:after {
         content: "";
-        display: table;
+        display: block;
+        clear:both;
     }
     &:after {
         clear: both;
@@ -51,6 +52,7 @@ $breakpoints: (
 }
 .page-container{
 	background:#f3f3f3;
+	position:relative;
 }
 .box{
 	background:#fefefe;
@@ -75,11 +77,10 @@ $breakpoints: (
 }
 .section-list-warrp{
 	position:relative;
-	height:120px;
 	#btn-to-left{
 		position:absolute;
 		right:0px;
-		top:26px;
+		top:40px;
 		width:16px;
 		height:28px;
 		z-index:1001;
@@ -116,7 +117,6 @@ $breakpoints: (
 			overflow:hidden;
 			float:left;
 			padding:8px;
-			position:relative;
 			&:nth-of-type(2n){
 				border-left:1px solid #ccc;
 			}
@@ -159,7 +159,8 @@ $breakpoints: (
 	.class-list{
 
 		.class-item{
-			height:68px;
+			height:78px;
+			padding-top:8px;
 			overflow:hidden;
 			position: relative;
 			border-bottom:1px solid #ccc;
@@ -176,13 +177,95 @@ $breakpoints: (
 				position:absolute;
 				top:5px;
 				left:86px;
+				.class-info-title{
+					height:30px;
+					line-height:30px;
+					font-size:16px;
+					font-weight:500;
+					word-break:keep-all;           /* 不换行 */
+					white-space:nowrap;          /* 不换行 */
+					overflow:hidden;
+				}
+				.class-info-cont{
+					color:$fontColor;
+					font-size:12px;
+					height:24px;
+					line-height:24px;
+					word-break:keep-all;           /* 不换行 */
+					white-space:nowrap;          /* 不换行 */
+					overflow:hidden;
+					.list-teacher{
+						position: absolute;
+					    bottom: -24px;
+					    left: 40px;
+					    font-size:16px;
+					    color:$titleBeforeColor;
+					}
+				}
+			}
+		}
+	}
+	/*foot-bar*/
+	.foot-bar-list{
+		height:54px;
+		overflow:hidden;
+		.foot-bar-item{
+			float:left;
+			width:20%;
+			text-align:center;
+			position:relative;
+			i{
+				display:block;
+				width:42px;
+				height:36px;
+				position:absolute;
+				left:50%;
+				margin-left:-18px;
+				background-color:red;
+			}
+			.card{
+				background:url("../images/card.png") no-repeat;
+			}
+			.room{
+				background:url("../images/room.png") no-repeat;
+			}
+			.teacher{
+				background:url("../images/teacher.png") no-repeat;
+			}
+			.wangqi{
+				background:url("../images/wangqi.png") no-repeat;
+			}
+			.zhibo{
+				background:url("../images/zhibo.png") no-repeat;
+			}
+			.foot-txt{
+				display: block;
+			    width: 100%;
+			    height: 28px;
+			    text-align:center;
+				padding-top:40px;
+				color:$fontColor;
 			}
 		}
 	}
 
 
 }
-.famous-teacher,.auditorium,.past-class{
-	@include clearfix;
+.famous-teacher,.auditorium,.past-class,.foot-bar{
+	@include clearfix();
+	clear:both;
 	padding:10px;
+}
+//add more
+.class-add-more{
+    height: 75px;
+    line-height: 75px;
+    text-align: center;
+    color: $fontColor;
+}
+.foot-bar{
+	position:fixed;
+	bottom:0;
+	left:0;
+	width:100%;
 }
