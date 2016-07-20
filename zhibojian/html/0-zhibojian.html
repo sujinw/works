@@ -41,7 +41,10 @@
 
 	<link rel="stylesheet" type="text/css" href="css/reset.css" />
 	<link rel="stylesheet" type="text/css" href="css/content.css">
-
+	
+	<!-- load javascript -->
+<script type="text/javascript" src="js/zepto.js"></script>
+<script type="text/javascript" src="js/iscroll.js"></script>
 	<title>直播间</title>
 </head>
 <body>
@@ -51,8 +54,9 @@ container		最外层的容器
 warrp			功能容器
 content			居中 -->
 	<!-- page container bengin -->
-	<div class="page-container">
-		<!-- famous teacher bengin -->
+	<div class="page-container" id="wrapper">
+		<div>
+			<!-- famous teacher bengin -->
 		<section class="famous-teacher box">
 			<div class="section-title">
 				<h3>名师风采</h3>
@@ -165,7 +169,7 @@ content			居中 -->
 			<div class="section-title">
 				<h3>往期课程</h3>
 			</div>
-			<div class="section-list-warrp">
+			<div class="section-list-warrp" id="scroller-content">
 				<ul class="class-list">
 					<li class="class-item">
 						<a href="">
@@ -236,7 +240,10 @@ content			居中 -->
 				</ul>
 			</div>
 		</section>
-		<div class="class-add-more">上拉加载更多...</div>
+		<!-- <div class="class-add-more">上拉加载更多...</div> -->
+		<div id="pullUp">
+				<span class="pullUpIcon"></span><span class="pullUpLabel">上拉加载更多...</span>
+			</div>
 		<!-- past class end -->
 		<div class="clearfix"></div>
 		<div style="height:74px;"></div>
@@ -275,7 +282,78 @@ content			居中 -->
 				</ul>
 			</div>
 		</section>
+		</div>
 	</div>
 	<!-- page end -->
+
+
 </body>
 </html>
+<script>var data,
+		myScroll,
+		pullDownEl, pullDownOffset,
+		pullUpEl, pullUpOffset,
+		generatedCount = 0;
+
+	function pullDownAction () {
+		$.getJSON('/uploads/rs/200/ptvnx6ur/test.json', function (data, state) {
+			if (data && data.state == 1 && state == 'success') {
+				//本地测试，为了看到加载中效果故加上定时器
+				setTimeout(function () {
+					$('#news-lists').before(data.data);
+					myScroll.refresh();
+				}, 600);
+			}
+		});
+	}
+
+	function pullUpAction () {
+
+		$.getJSON('/uploads/rs/200/ptvnx6ur/test.json', function (data, state) {
+			if (data && data.state == 1 && state == 'success') {
+				//本地测试，为了看到加载中效果故加上定时器
+				setTimeout(function () {
+					$('#news-lists').append(data.data);
+					myScroll.refresh();
+				}, 600);
+			}
+		});
+	}
+
+	//初始化绑定iScroll控件 
+	// document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false);
+	document.addEventListener('DOMContentLoaded', loaded, false);
+
+	function loaded() {
+		// pullDownEl = document.getElementById('pullDown');
+		// pullDownOffset = pullDownEl.offsetHeight;
+		pullUpEl = document.getElementById('pullUp');	
+		pullUpOffset = pullUpEl.offsetHeight;
+		
+		/**
+		 * 初始化iScroll控件
+		 */
+		myScroll = new iScroll('scroller-content', {
+			vScrollbar : false,
+			topOffset : pullDownOffset,
+			onRefresh : function () {
+				if (pullUpEl.className.match('loading')) {
+					pullUpEl.className = '';
+					pullUpEl.querySelector('.pullUpLabel').innerHTML = '上拉加载更多...';
+				}
+			},
+			onScrollMove: function () {
+				if (this.y < (this.maxScrollY - 5) && !pullUpEl.className.match('flip')) {
+					pullUpEl.className = 'flip';
+					pullUpEl.querySelector('.pullUpLabel').innerHTML = '松手开始更新...';
+				}
+			},
+			onScrollEnd: function () {
+				if (pullUpEl.className.match('flip')) {
+					pullUpEl.className = 'loading';
+					pullUpEl.querySelector('.pullUpLabel').innerHTML = '加载中...';				
+					pullUpAction();
+				}
+			}
+		});
+	}</script>
