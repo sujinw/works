@@ -32,10 +32,6 @@
 	<meta name="screen-orientation" content="portrait" />
 	<!-- QQ强制竖屏 -->
 	<meta name="x5-orientation" content="portrait" />
-	<!-- UC应用模式 -->
-	<meta name="browsermode" content="application" />
-	<!-- QQ应用模式 -->
-	<meta name="x5-page-mode" content="app" />
 	<!-- windows phone 点击无高光 -->
 	<meta name="msapplication-tap-highlight" content="no" />
 
@@ -44,8 +40,61 @@
 	
 	<!-- load javascript -->
 <script type="text/javascript" src="js/zepto.js"></script>
-<script type="text/javascript" src="js/iscroll.js"></script>
+<script type="text/javascript" src="js/dropload.js"></script>
 	<title>直播间</title>
+	<style type="text/css">
+		.dropload-up,.dropload-down{
+    position: relative;
+    height: 0;
+    overflow: hidden;
+    font-size: 12px;
+    /* 开启硬件加速 */
+    -webkit-transform:translateZ(0);
+    transform:translateZ(0);
+}
+.dropload-down{
+    height: 50px;
+}
+.dropload-refresh,.dropload-update,.dropload-load,.dropload-noData{
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+}
+.dropload-load .loading{
+    display: inline-block;
+    height: 15px;
+    width: 15px;
+    border-radius: 100%;
+    margin: 6px;
+    border: 2px solid #666;
+    border-bottom-color: transparent;
+    vertical-align: middle;
+    -webkit-animation: rotate 0.75s linear infinite;
+    animation: rotate 0.75s linear infinite;
+}
+@-webkit-keyframes rotate {
+    0% {
+        -webkit-transform: rotate(0deg);
+    }
+    50% {
+        -webkit-transform: rotate(180deg);
+    }
+    100% {
+        -webkit-transform: rotate(360deg);
+    }
+}
+@keyframes rotate {
+    0% {
+        transform: rotate(0deg);
+    }
+    50% {
+        transform: rotate(180deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+	</style>
 </head>
 <body>
 	<!-- 
@@ -170,7 +219,7 @@ content			居中 -->
 				<h3>往期课程</h3>
 			</div>
 			<div class="section-list-warrp" id="scroller-content">
-				<ul class="class-list">
+				<ul class="class-list lists">
 					<li class="class-item">
 						<a href="">
 							<div class="class-img">
@@ -241,9 +290,7 @@ content			居中 -->
 			</div>
 		</section>
 		<!-- <div class="class-add-more">上拉加载更多...</div> -->
-		<div id="pullUp">
-				<span class="pullUpIcon"></span><span class="pullUpLabel">上拉加载更多...</span>
-			</div>
+		
 		<!-- past class end -->
 		<div class="clearfix"></div>
 		<div style="height:74px;"></div>
@@ -252,30 +299,31 @@ content			居中 -->
 			<div class="section-list-warrp">
 				<ul class="foot-bar-list">
 					<li class="foot-bar-item">
-						<a href=""> <i class="card"></i>
+						<a href="">
+							<i class="iconfont icon-mingpian"></i>
 							<span class="foot-txt">名片</span>
 						</a>
 					</li>
 					<li class="foot-bar-item">
-						<a href=""> <i class="teacher"></i>
+						<i class="iconfont icon-qunzu"></i>
 							<span class="foot-txt">名师</span>
 						</a>
 					</li>
-					<li class="foot-bar-item">
+					<li class="foot-bar-item active">
 						<a href="">
-							<i class="zhibo"></i>
+							<i class="iconfont icon-shijian"></i>
 							<span class="foot-txt">直播</span>
 						</a>
 					</li>
 					<li class="foot-bar-item">
 						<a href="">
-							<i class="wangqi"></i>
+							<i class="iconfont icon-eye"></i>
 							<span class="foot-txt">往期</span>
 						</a>
 					</li>
 					<li class="foot-bar-item">
 						<a href="">
-							<i class="room"></i>
+							<i class="iconfont icon-wancheng"></i>
 							<span class="foot-txt">申请房间</span>
 						</a>
 					</li>
@@ -287,73 +335,65 @@ content			居中 -->
 	<!-- page end -->
 
 
+<script>
+	$(function(){
+    var counter = 0;
+    // 每页展示4个
+    var num = 4;
+    var pageStart = 0,pageEnd = 0;
+
+    // dropload
+    $('#scroller-content').dropload({
+        scrollArea : window,
+        domDown : {
+            domClass   : 'pullup',
+            domRefresh : '<div class="dropload-refresh"><span class="pullUpIcon"></span><span class="pullUpLabel">上拉加载更多...</span></div>',
+            domLoad    : '<div class="dropload-load"><span class="loading"></span>加载中-请稍后...</div>',
+            domNoData  : '<div class="dropload-noData">暂无数据</div>'
+        },
+        loadDownFn : function(me){
+        	console.log('data.json')
+            $.ajax({
+                type: 'GET',
+                url: 'data.php',
+                dataType: 'json',
+                success: function(data){
+                	console.log(data)
+                    var result = '';
+                    counter++;
+                    pageEnd = num * counter;
+                    pageStart = pageEnd - num;
+
+                    for(var i = pageStart; i < pageEnd; i++){
+                   		result += '<li class="class-item"><a href=""><div class="class-img"><img src="'+data.lists[i].imgSrc+'" alt=""></div><div class="class-info"><div class="class-info-title"><h3>'+ data.lists[i].title +'</h3></div><div class="class-info-cont"><p>'+ data.lists[i].content +'</p><p class="list-teacher">'+ data.lists[i].teacher +'</p></div></div></a></li>';
+                       
+                        if((i + 1) >= data.lists.length){
+                            // 锁定
+                            me.lock();
+                            // 无数据
+                            me.noData();
+                            break;
+                        }
+                    }
+                    console.log(result)
+                    // 为了测试，延迟1秒加载
+                    setTimeout(function(){
+                        $(result).appendTo('.lists');
+                        // 每次数据加载完，必须重置
+                        me.resetload();
+                    },1000);
+                },
+                error: function(xhr, type){
+                    alert('Ajax error!');
+                    console.log(xhr,type)
+                    // 即使加载出错，也得重置
+                    me.resetload();
+                }
+            });
+        }
+    });
+});
+</script>
+
 </body>
 </html>
-<script>var data,
-		myScroll,
-		pullDownEl, pullDownOffset,
-		pullUpEl, pullUpOffset,
-		generatedCount = 0;
-
-	function pullDownAction () {
-		$.getJSON('/uploads/rs/200/ptvnx6ur/test.json', function (data, state) {
-			if (data && data.state == 1 && state == 'success') {
-				//本地测试，为了看到加载中效果故加上定时器
-				setTimeout(function () {
-					$('#news-lists').before(data.data);
-					myScroll.refresh();
-				}, 600);
-			}
-		});
-	}
-
-	function pullUpAction () {
-
-		$.getJSON('/uploads/rs/200/ptvnx6ur/test.json', function (data, state) {
-			if (data && data.state == 1 && state == 'success') {
-				//本地测试，为了看到加载中效果故加上定时器
-				setTimeout(function () {
-					$('#news-lists').append(data.data);
-					myScroll.refresh();
-				}, 600);
-			}
-		});
-	}
-
-	//初始化绑定iScroll控件 
-	// document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false);
-	document.addEventListener('DOMContentLoaded', loaded, false);
-
-	function loaded() {
-		// pullDownEl = document.getElementById('pullDown');
-		// pullDownOffset = pullDownEl.offsetHeight;
-		pullUpEl = document.getElementById('pullUp');	
-		pullUpOffset = pullUpEl.offsetHeight;
-		
-		/**
-		 * 初始化iScroll控件
-		 */
-		myScroll = new iScroll('scroller-content', {
-			vScrollbar : false,
-			topOffset : pullDownOffset,
-			onRefresh : function () {
-				if (pullUpEl.className.match('loading')) {
-					pullUpEl.className = '';
-					pullUpEl.querySelector('.pullUpLabel').innerHTML = '上拉加载更多...';
-				}
-			},
-			onScrollMove: function () {
-				if (this.y < (this.maxScrollY - 5) && !pullUpEl.className.match('flip')) {
-					pullUpEl.className = 'flip';
-					pullUpEl.querySelector('.pullUpLabel').innerHTML = '松手开始更新...';
-				}
-			},
-			onScrollEnd: function () {
-				if (pullUpEl.className.match('flip')) {
-					pullUpEl.className = 'loading';
-					pullUpEl.querySelector('.pullUpLabel').innerHTML = '加载中...';				
-					pullUpAction();
-				}
-			}
-		});
-	}</script>
