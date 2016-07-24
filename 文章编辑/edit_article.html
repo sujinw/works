@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+<head>
+    <meta charset='utf-8' />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta name="description" content="不超过150个字符"/>
+    <meta name="keywords" content=""/>
+    <meta name="author" content="slade, sujinw@qq.com"/>
+    <!-- 为移动设备添加 viewport -->
+    <meta name="viewport" content="initial-scale=1, maximum-scale=3, minimum-scale=1, user-scalable=no" />
+    <!-- `width=device-width` 会导致 iPhone 5 添加到主屏后以 WebApp 全屏模式打开页面时出现黑边 http://bigc.at/ios-webapp-viewport-meta.orz -->
+
+    <!-- iOS 设备 begin -->
+    <meta name="apple-mobile-web-app-title" content="标题" />
+    <!-- 添加到主屏后的标题（iOS 6 新增） -->
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <!-- 是否启用 WebApp 全屏模式，删除苹果默认的工具栏和菜单栏 -->
+
+    <meta name="apple-itunes-app" content="app-id=myAppStoreID, affiliate-data=myAffiliateData, app-argument=myURL" />
+    <!-- 添加智能 App 广告条 Smart App Banner（iOS 6+ Safari） -->
+    <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+    <!-- 设置苹果工具栏颜色 -->
+    <meta name="format-detection" content="telphone=no, email=no"/>
+    <!-- 忽略页面中的数字识别为电话，忽略email识别 -->
+    <!-- 启用360浏览器的极速模式(webkit) -->
+    <meta name="renderer" content="webkit" />
+    <!-- 避免IE使用兼容模式 -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>编辑文章</title>
+    <link rel="stylesheet" type="text/css" href="css/weui.min.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    </head>
+<body>
+    <div class="warrp">
+        <!-- 编辑文章标题  -->
+        <div class="edit-title">
+            <div class="title-background">
+                <div class="textarea" contenteditable='true'>编辑文章标题文章标题文章标题文章标题</div>
+                <div class="changebackground">
+                    <span class="icon icon-tupian" style="margin-right:10px"></span>
+                    更改背景
+                </div>
+            </div>
+            <div class="title-music">
+                <div class="music-btn">
+                    <span class="icon icon-music" style="margin-right: 10px"></span>
+                    未设置背景音乐
+                </div>
+                <audio loop="loop" src id="media" autoplay="preload"></audio>
+            </div>
+        </div>
+
+        <!-- 编辑文章内容 -->
+        <div class="edit-content" id="cont">
+            
+        </div>
+
+        <!-- 发布和保存 -->
+        <div class="edit-footer">
+            <div class="btn_div" style="padding-top: 25px;width:260px;">
+            <div class="cancle submit_btn weui_btn_plain_primary" data-save="0">保存草稿</div>
+            <div class="ok submit_btn weui_btn_plain_primary" data-save="1">确定发布</div>
+        </div>
+        <div style="height:50px"></div>
+        </div>
+        <div class="template">
+<script type="text" id="example_add">
+    <div class="add" title="增加按钮区域">
+        <span class="icon icon-add add_btn" style="color:#ddd;font-weight: bold;line-height:45px;font-size:18px" onclick="show_annu(this)">添加内容</span>
+    <div class="add_btn_group">
+    <div class="addico">
+        <div class="addimg_btn" onclick="add_img(this)">
+            <span class="icon icon-tupian " style="color:#04BE02;" ></span><br>图片</div>
+        <div class="addtxt_btn" onclick="add_txt(this)">
+            <span class="icon icon-wenzi14 " style="font-size:20px;color:#04BE02;font-weight: bold;"></span><br>文字</div>
+        <div class="addlink_btn" onclick="add_link(this)"><span class="icon icon-lianjie " style="color:#04BE02;"></span><br>链接</div>
+    </div>
+</div>
+</div>
+</script>
+<script type="text" id="example_img">
+    <div class="newimg item" title="增加图片区域" data-type="img">
+        <img src="$IMG$" class="upload_img no_upload_img">
+            <div class="del" onclick="del(this)"></div><div class="up" onclick="up(this)"></div><div class="down" onclick="down(this)"></div>
+    </div>
+</script>
+<script type="text" id="example_text">
+    <div class="newtext item" title="增加文字区域" data-type="text">
+        <p class="p" onclick="opentextdiv(this)"></p>
+    <div style="position:absolute;width:80px;height:80px;right:0;top:0;filter:alpha(opacity=10); -moz-opacity:0.1; -khtml-opacity: 0.1; opacity: 0.1; "><span class="iconfont0 icon-comiiswenzimoshi " style="color:#333;font-size:80px;line-height:80px"></span></div>
+    <div class="del" onclick="del(this)"></div><div class="up" onclick="up(this)"></div><div class="down" onclick="down(this)"></div>
+    </div>
+</script>
+<script type="text" id="example_link">
+    <div class="newlink item" title="增加链接区域" data-type="link">
+        <p class="p" onclick="openlinkdiv(this)"></p>
+        <div style="position:absolute;width:80px;height:80px;right:0;top:0;filter:alpha(opacity=10); -moz-opacity:0.1; -khtml-opacity: 0.1; opacity: 0.1; "><span class="iconfont0 icon-wenzilianjie " style="color:#333;font-size:80px;line-height:80px"></span></div>
+        <div class="del" onclick="del(this)"></div><div class="up" onclick="up(this)"></div><div class="down" onclick="down(this)"></div>
+    </div> 
+</script>
+<script type="text" id="example_url_input">
+    <div title="弹出链接框" class="url_input_div">
+        <div class="mask_div">
+            <div><br><input type="text" placeholder="添加网址(如：http://www.baidu.com)" id="url"></div><div><input type="text" placeholder="显示的文字(如：百度)" id="url_txt"></div>
+            <div class="btn_div">
+                <div class="cancle" onclick="cancle(this)">取消</div>
+                <div class="ok" onclick="link_ok(this)">确定</div>
+            </div>
+        </div>
+    </div>
+</script>
+<script type="text" id="example_txt_input">
+    <div title="弹出文字输入框" class="txt_input_div" style="display:block">
+        <div class="mask_div">
+        <br><div class="input_txt_div" contenteditable="true"></div>
+        <div class="toolbar">
+            <dd><span ontouchstart="txt_bold(this)" class="iconfont0 icon-bold" style="font-size:20px"></span></dd>
+            <dd><span ontouchstart="txt_size(this)" class="iconfont0 icon-ziti" ></span></dd>
+            <dd><span ontouchstart="txt_align(this)" class="iconfont0 icon-center" ></span></dd>
+            <dd><span ontouchstart="txt_color(this)" class="iconfont0 icon-color" ></span></dd>
+            <div class="color_group">
+            <dt ontouchstart="changeColor(this)"><span style="color:#000">■</span></dt>
+            <dt ontouchstart="changeColor(this)"><span style="color:#808080">■</span></dt>
+            <dt ontouchstart="changeColor(this)"><span style="color:#EE2207">■</span></dt>
+            <dt ontouchstart="changeColor(this)"><span style="color:#FF8900">■</span></dt>
+            <dt ontouchstart="changeColor(this)"><span style="color:#37B549">■</span></dt>
+            <dt ontouchstart="changeColor(this)"><span style="color:#157FF7">■</span></dt>
+            <dt ontouchstart="changeColor(this)"><span style="color:#B14EBB">■</span></dt>
+            </div>
+        </div>
+        <div class="btn_div" style="padding-top: 5px">
+            <div class="cancle" onclick="cancle(this)">取消</div>
+            <div class="ok" onclick="input_txt_ok(this)">确定</div>
+        </div>
+        </div>
+    </div>
+</script>
+<script type="text" id="dialog_confirm">
+    <div class="weui_dialog_confirm" id="dialog1">
+        <div class="weui_mask"></div>
+        <div class="weui_dialog">
+            <div class="weui_dialog_hd"><strong class="weui_dialog_title">删除提醒</strong></div>
+            <div class="weui_dialog_bd">确定删除此内容吗？</div>
+            <div class="weui_dialog_ft">
+                <a href="javascript:location.hash='';$('#dialog1').remove();" class="weui_btn_dialog default">取消</a>
+                <a href="javascript:del_ok(this);" class="weui_btn_dialog primary">确定</a>
+            </div>
+        </div>
+    </div>
+</script>
+</div>
+</div>
+<div id="uploadImg">
+    <div class="upload-title">插入图片</div>
+    <div class="preview-img">
+        <div class="photo" id="getfile">
+            <span class="icon icon-add" style='font-size: 110px;'></span>
+            <img src="" alt='' id="img" />
+            <input type="file" id="file" />
+        </div>
+        <div class="photo-txt">注：每次只能添加一张图片</div>
+    </div>
+    <div class="preview-btn">
+        <input type="hidden" value="" id="img-id" />
+        <a href="javascript:;" onclick='imgSub()'>确定</a>
+        <a href="javascript:;">取消</a>
+    </div>
+</div>
+<script type="text/javascript" src='js/jquery.min.js'></script>
+<script type="text/javascript">
+$().ready(function(){
+   var example_add = $("#example_add").html();
+   $(example_add).appendTo("#cont") 
+});
+var example_add = $("#example_add").html();
+var example_img = $("#example_img").html();
+var example_text = $("#example_text").html();
+var example_link = $("#example_link").html();
+var example_url_input = $("#example_url_input").html(); //弹出url层
+var example_txt_input = $("#example_txt_input").html(); //弹出text层
+var mainpage = location.href;
+var mainPic = '';
+var music_temp='';
+var images = {
+    localId: [],
+    serverId: []
+  };
+//重构images.localId:添加新图片，移动位置时都要更新
+function getLocalId(){
+    images.localId = [] ;
+    var img = $(".no_upload_img");
+     for (var i=0; i < img.length; i++) {
+        images.localId.push( $(img[i]).attr("src") ); 
+     }
+}
+//点击添加按钮，出现三个子按钮
+function show_annu(o) {
+    $(o).hide();
+    $(o).parent().children(".add_btn_group").show();
+    menu = $(o).parent();
+}
+//点击添加图片框
+function add_img(o){
+   
+}
+//获取图片
+if ( typeof(FileReader) === 'undefined' ){ 
+
+    $('.photo-txt').html("抱歉，你的浏览器不支持 FileReader，请使用现代浏览器操作！"); 
+    $("#file").attr( 'disabled','disabled' ); 
+
+} else { 
+    $("#file").on( 'change',readFile );
+}
+
+//添加图片界面确定按钮
+function imgSub(){
+    var imgPath = $('#img').attr('src');
+    var obj=$('#cont');
+    var imghtml = example_img;
+    // console.log(imgPath)
+    if(imgPath == '' || imgPath == null || imgPath=='undefined')
+        alert('没有选择图片！');
+
+    var html = imghtml.replace("$IMG$", imgPath);
+    console.log(imghtml)
+    if(imghtml!='')obj.after(html);              
+        getLocalId(); //重构images.localId
+
+    $('#uploadImg').hide(200)
+}
+function readFile(){ 
+    var file = this.files[0]; 
+    //这里我们判断下类型如果不是图片就返回 去掉就可以上传任意文件 
+    if(!/image\/\w+/.test(file.type)){ 
+        alert("请确保文件为图像类型"); 
+        return false; 
+    } 
+    var reader = new FileReader(); 
+    reader.readAsDataURL(file); 
+    reader.onload = function(e){ 
+        console.log(this.result)
+        $('#img').attr('src',this.result); 
+    } 
+} 
+
+</script>
+</body>
+</html>
