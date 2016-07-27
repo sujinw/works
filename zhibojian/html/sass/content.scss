@@ -77,6 +77,7 @@ $breakpoints: (
 }
 .box{
 	background:#fefefe;
+	border-bottom:1px solid #ddd; 
 }
 .section-title{
 	height:32px;
@@ -98,25 +99,34 @@ $breakpoints: (
 }
 .section-list-warrp{
 	position:relative;
+	transition: all .5s ease-in;
+	-moz-transition: all .5s ease-in;	/* Firefox 4 */
+	-webkit-transition: all .5s ease-in;	/* Safari  Chrome */
+	-o-transition: all .5s ease-in;
 	#btn-to-left{
-		position:absolute;
-		right:0px;
-		top:40px;
-		width:16px;
-		height:28px;
-		z-index:1001;
-		background:url('../images/arrow_right.png') no-repeat;
+		position: absolute;
+	    right: 0px;
+	    top: 20px;
+	    width: 40px;
+	    height: 60px;
+	    z-index: 1001;
+	    background: url("../images/arrow_right.png") no-repeat center center;
 	}
 	.section-list{
-		position:absolute;
-		left:10px;
-		top:0;
-		height:90%;
-		overflow:hidden;
+		position: absolute;
+	    left: 10px;
+	    top: 0;
+	    right: 10px;
+	    height:100px;
+	    overflow: hidden;
+	    transition: all .5s ease-in;
+		-moz-transition: all .5s ease-in;	/* Firefox 4 */
+		-webkit-transition: all .5s ease-in;	/* Safari  Chrome */
+		-o-transition: all .5s ease-in;
 		li{
 			float:left;
 			text-align:center;
-			width:20%;
+			width:70px;
 			margin:13px 1% 13px 1%;
 			overflow:hidden;
 			.teacher-name{
@@ -203,8 +213,8 @@ $breakpoints: (
 					line-height:30px;
 					font-size:16px;
 					font-weight:500;
-					word-break:keep-all;           /* 不换行 */
-					white-space:nowrap;          /* 不换行 */
+					word-break:keep-all;           
+					white-space:nowrap;          
 					overflow:hidden;
 				}
 				.class-info-cont{
@@ -212,8 +222,8 @@ $breakpoints: (
 					font-size:12px;
 					height:24px;
 					line-height:24px;
-					word-break:keep-all;           /* 不换行 */
-					white-space:nowrap;          /* 不换行 */
+					word-break:keep-all;           
+					white-space:nowrap;         
 					overflow:hidden;
 					.list-teacher{
 						position: absolute;
@@ -242,7 +252,8 @@ $breakpoints: (
 				position:absolute;
 				left:50%;
 				margin-left:-18px;
-				background-color:red;
+				font-size:24px;
+				//background-color:red;
 			}
 			.card{
 				background:url("../images/card.png") no-repeat;
@@ -264,12 +275,13 @@ $breakpoints: (
 			    width: 100%;
 			    height: 28px;
 			    text-align:center;
-				padding-top:40px;
+				padding-top:32px;
 				color:$fontColor;
 			}
 		}
 		.active{
-			a{
+			a{	
+				color:$titleBeforeColor;
 				span.foot-txt{
 					color:$titleBeforeColor;
 				}
@@ -278,6 +290,125 @@ $breakpoints: (
 	}
 
 
+}
+
+// apply room
+.apply-container{
+	margin-top:27px;
+	.checkbox-warrp{
+		height: 48px;
+	    line-height: 33px;
+	    overflow: hidden;
+	    text-align: center;
+	    width: 80%;
+	    margin: 0 auto;
+		.checkbox-item{
+			float:left;
+			width:33%;
+			position:relative;
+			height:100%;
+			input{
+				display:none;
+			}
+			i{
+				display:inline-block;
+				width:31px;
+				height:31px;
+				background:url('../images/checkbox_empty.png') no-repeat;
+				background-size:20px 20px;
+				position:absolute;
+				top:10px;
+				left: 0;
+			}
+			span{
+				position: absolute;
+			    left: 24px;
+			    top: 3px;
+			}
+		}
+	}
+	.apply-form{
+		padding: 10px;
+		.from-group{
+			height:38px;
+			line-height:38px;
+			overflow:hidden;
+			margin-top:15px;
+			label{
+				display:inline-block;
+				width:80px;
+			}
+			.from-inpt-txt{
+				width:67%;
+				min-width:190px;
+				max-width:540px;
+				height:32px;
+				line-height:32px;
+				border:1px solid #ddd;
+				border-radius:5px;
+				padding:2px 2px 2px 12px;
+				outline: none;
+			}
+		}
+	}
+	.apply-btn-warrp{
+		height:110px;
+		text-align:center;
+		.apply-btn{
+			height:45px;
+			line-height:45px;
+			background:$titleBeforeColor;
+			border:1px solid #ddd;
+			width:240px;
+			border-radius:8px;
+			margin-top:30px;
+			color:#fff;
+			outline:none;
+			&:active{
+				background-color:#FFAA61;
+				outline:none;
+			}
+		}
+
+	}
+
+}
+.teacher-info{
+	.teacher-name{
+		position:relative;
+		h3{
+			height: 65px;
+		    line-height: 84px;
+		    background: #ffe1a5;
+		    font-size: 18px;
+		    color: #fefefe;
+		    text-shadow: 0 0 5px #999;
+		    padding-left: 114px;
+		}
+		img{
+			width: 76px;
+		    height: 76px;
+		    border: 1px solid #ddd;
+		    border-radius: 50%;
+		    position: absolute;
+		    left: 25px;
+		    top: 20px;
+		}
+	}
+	.teacher-info-cont{
+		background: #fff;
+	    padding: 45px 10px 10px 10px;
+	    line-height: 24px;
+	    color: #575757;
+	}
+}
+.apply-tips{
+	height:24px;
+	line-height:24px;
+	padding:12px;
+	h3{
+		color:$titleBeforeColor;
+	}
 }
 .famous-teacher,.auditorium,.past-class,.foot-bar{
 	@include clearfix();
@@ -303,57 +434,55 @@ $breakpoints: (
     -moz-box-shadow: 1px 1px 3px 2px #ccc;
     -webkit-box-shadow: 1px 1px 3px 2px #ccc;
 }
-#pullDown, #pullUp {
-		background:transparent;
-		height:45px;
-		line-height:40px;
-		padding:0px 10px;
-		border-bottom:1px solid #ccc;
-		font-weight:bold;
-		font-size:14px;
-		color:#888;
-		margin-top: -15px;
-	}
-	#pullUp {
-		text-align:center;
-		height:65px;
-		padding:10px 10px 0px 0px;
-	}
-	#pullDown .pullDownIcon, #pullUp .pullUpIcon  {
-		display:inline-block;
-		width:40px; height:40px;
-		background:url(../images/pull-icon@2x.png) 0 0 no-repeat;
-		-webkit-background-size:40px 80px; background-size:40px 80px;
-		-webkit-transition-property:-webkit-transform;
-		-webkit-transition-duration:250ms;	
-	}
-	#pullDown .pullDownIcon {
-		-webkit-transform:rotate(0deg) translateZ(0);
-	}
-	#pullUp .pullUpIcon  {
-		-webkit-transform:rotate(-180deg) translateZ(0);
-	}
-	
-	#pullDown.flip .pullDownIcon {
-		-webkit-transform:rotate(-180deg) translateZ(0);
-	}
-	
-	#pullUp.flip .pullUpIcon {
-		-webkit-transform:rotate(0deg) translateZ(0);
-	}
-	
-	#pullDown.loading .pullDownIcon, #pullUp.loading .pullUpIcon {
-		background-position:0 100%;
-		-webkit-transform:rotate(0deg) translateZ(0);
-		-webkit-transition-duration:0ms;
-	
-		-webkit-animation-name:loading;
-		-webkit-animation-duration:2s;
-		-webkit-animation-iteration-count:infinite;
-		-webkit-animation-timing-function:linear;
-	}
-	
-	@-webkit-keyframes loading {
-		from { -webkit-transform:rotate(0deg) translateZ(0); }
-		to { -webkit-transform:rotate(360deg) translateZ(0); }
-	}
+.dropload-up,.dropload-down{
+    position: relative;
+    height: 0;
+    overflow: hidden;
+    font-size: 12px;
+    -webkit-transform:translateZ(0);
+    transform:translateZ(0);
+}
+.dropload-down{
+    height: 50px;
+}
+.dropload-refresh,.dropload-update,.dropload-load,.dropload-noData{
+	margin-top:30px;
+    height: 80px;
+    line-height: 80px;
+    text-align: center;
+    background:#f3f3f3;
+}
+.dropload-load .loading{
+    display: inline-block;
+    height: 15px;
+    width: 15px;
+    border-radius: 100%;
+    margin: 6px;
+    border: 2px solid #666;
+    border-bottom-color: transparent;
+    vertical-align: middle;
+    -webkit-animation: rotate 0.75s linear infinite;
+    animation: rotate 0.75s linear infinite;
+}
+@-webkit-keyframes rotate {
+    0% {
+        -webkit-transform: rotate(0deg);
+    }
+    50% {
+        -webkit-transform: rotate(180deg);
+    }
+    100% {
+        -webkit-transform: rotate(360deg);
+    }
+}
+@keyframes rotate {
+    0% {
+        transform: rotate(0deg);
+    }
+    50% {
+        transform: rotate(180deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
