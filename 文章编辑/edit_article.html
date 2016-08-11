@@ -27,10 +27,8 @@
     <!-- 避免IE使用兼容模式 -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <title>编辑文章</title>
-    <link rel="stylesheet" href="css/common.css?v=3.1.3">
-    <link rel="stylesheet" type="text/css" href="css/weui.min.css">
     <link rel="stylesheet" type="text/css" href="css/style.css">
-    <link rel="stylesheet" href="css/miniEditor.css?v=3.1.3">
+    <link rel="stylesheet" type="text/css" href="css/weui.min.css">
     <style type="text/css">
         .m-zdbg{
               display: none;
@@ -47,9 +45,10 @@
         .active1{
           display: block;
         }
+        .group_item .icon{color:#fff;}
     </style>
     </head>
-<body>
+<body style="overflow-y:scroll;">
     <div class="warrp">
         <!-- 编辑文章标题  -->
         <div class="edit-title">
@@ -65,7 +64,7 @@
                     <span class="icon icon-music" style="margin-right: 10px"></span>
                     未设置背景音乐
                 </div>
-                <div class="delmusic" style="width:40px;float:left;height:30px;display: none">
+                <div class="delmusic" style="width:40px;float:left;height:30px;display:none">
                     <span class="icon icon-shanchu" style="color:#FFF;font-size:13px;"></span>
                 </div>
                 <div style="float:right" class="mainPic">
@@ -73,12 +72,62 @@
                 </div>
                 <audio loop="loop" src id="media" autoplay="preload"></audio>
             </div>
-        </div>
+            <div title="设置背景音乐" class="music" style="display:none;">
+                <div class="mask_div" style="overflow-y: auto;-webkit-overflow-scrolling: touch;">
+                    <div class="searchMusic">
+                        <form id="musicform" onSubmit="musicsearch();return false">
+                            <input type="search"  placeholder="输入关键字搜索在线音乐" id="music_keyword" maxlength="15">            
+                            <div class="ok no" onClick="choose_music_ok(this)">选择这首作为背景音乐</div>
+                        </form>
+                    </div>
+                    <div class="KeyWord_">
+                        <div class="searchico_"></div>
+                        搜索
+                        <span id="key_word_"></span>
+                    </div>
+                    <div class="_list">
+                        <div onClick="chooseMusic(this)" class="musiclist" data-mp3="http://www.079n.com/3294136837747241.mp3" data-name="带着梦想去旅行" data-author="庄心妍">
+                            <div class="_info">
+                                <div style="width:230px;text-overflow: ellipsis;display: -webkit-box;-webkit-line-clamp: 1;-webkit-box-orient: vertical;white-space:nowrap; height:20px;overflow:hide">带着梦想去旅行</div>
+                                <span>庄心妍</span>
+                            </div>
+                        </div>
+                        <div onClick="chooseMusic(this)" class="musiclist" data-mp3="http://m2.music.126.net/O7texJggO3TBhNzvnNszNw==/3294136837747241.mp3" data-name="夏洛特烦恼" data-author="金志文">
+                            <div class="_info">
+                                <div style="width:230px;text-overflow: ellipsis;display: -webkit-box;-webkit-line-clamp: 1;-webkit-box-orient: vertical;white-space:nowrap; height:20px;overflow:hide">夏洛特烦恼</div>
+                                <span>金志文</span>
+                            </div>
+                        </div>
+                        <div onClick="chooseMusic(this)" class="musiclist" data-mp3="http://m2.music.126.net/BzhdRzJjliLrxJ0lJBRoyw==/7972558814853034.mp3" data-name="大梦想家" data-author="TFBOYS">
+                            <div class="_info">
+                                <div style="width:230px;text-overflow: ellipsis;display: -webkit-box;-webkit-line-clamp: 1;-webkit-box-orient: vertical;white-space:nowrap; height:20px;overflow:hide">大梦想家</div>
+                                <span>TFBOYS</span>
+                            </div>
+                        </div>
+                        <div onClick="chooseMusic(this)" class="musiclist" data-mp3="http://m2.music.126.net/1mcydkJn4EzcruyNJGynzQ==/6044015418338974.mp3" data-name="小苹果" data-author="筷子兄弟">
+                            <div class="_info">
+                                <div style="width:230px;text-overflow: ellipsis;display: -webkit-box;-webkit-line-clamp: 1;-webkit-box-orient: vertical;white-space:nowrap; height:20px;overflow:hide">小苹果</div>
+                                <span>筷子兄弟</span>
+                            </div>
+                        </div>
+                        <div onClick="chooseMusic(this)" class="musiclist" data-mp3="http://m2.music.126.net/Fb72WXkpMgemAG7pU2bDzw==/5940661325305096.mp3" data-name="青春修炼手册" data-author="TFBOYS">
+                            <div class="_info">
+                                <div style="width:230px;text-overflow: ellipsis;display: -webkit-box;-webkit-line-clamp: 1;-webkit-box-orient: vertical;white-space:nowrap; height:20px;overflow:hide">青春修炼手册</div>
+                                <span>TFBOYS</span>
+                            </div>
+                        </div>
+                        <div onClick="chooseMusic(this)" class="musiclist" data-mp3="http://m2.music.126.net/j1NImdvTsx2o3DYbmpT9Lg==/7835119860630728.mp3" data-name="红豆" data-author="王菲">
+                            <div class="_info">
+                                <div style="width:230px;text-overflow: ellipsis;display: -webkit-box;-webkit-line-clamp: 1;-webkit-box-orient: vertical;white-space:nowrap; height:20px;overflow:hide">红豆</div>
+                                <span>王菲</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
         <!-- 编辑文章内容 -->
-        <div class="edit-content" id="cont">
-            
-        </div>
+        <div class="edit-content" id="cont"></div>
 
         <!-- 发布和保存 -->
         <div class="edit-footer">
@@ -113,14 +162,14 @@
     <div class="newtext item" title="增加文字区域" data-type="text">
         <p class="p" onclick="opentextdiv(this)" style='$textStyle$'>$text$</p>
     <div style="position:absolute;width:80px;height:80px;right:0;top:0;filter:alpha(opacity=10); -moz-opacity:0.1; -khtml-opacity: 0.1; opacity: 0.1; "><span class="iconfont0 icon-comiiswenzimoshi " style="color:#333;font-size:80px;line-height:80px"></span></div>
-    <div class="del" onclick="del(this)"></div><div class="up" onclick="up(this)"></div><div class="down" onclick="down(this)"></div>
+    <div class="del" onclick="del(this)"><span class='icon icon-shanchu' style="display:inline-block;width:100%;height:100%;line-height:70%;text-align:center;"></span></div><div class="up" onclick="up(this)"><span class='icon icon-shangyi' style="display:inline-block;width:100%;height:100%;line-height:70%;text-align:center;"></span></div><div class="down" onclick="down(this)"><span class='icon icon-shangyi' style="display:inline-block;width:100%;height:50%;line-height:70%;text-align:center; transform:rotate(180deg);-webkit-transform:rotate(180deg)"></span></div>
     </div>
 </script>
 <script type="text" id="example_link">
     <div class="newlink item" title="增加链接区域" data-type="link">
         <p class="p" onclick="openlinkdiv(this)"></p>
         <div style="position:absolute;width:80px;height:80px;right:0;top:0;filter:alpha(opacity=10); -moz-opacity:0.1; -khtml-opacity: 0.1; opacity: 0.1; "><span class="iconfont0 icon-wenzilianjie " style="color:#333;font-size:80px;line-height:80px"></span></div>
-        <div class="del" onclick="del(this)"></div><div class="up" onclick="up(this)"></div><div class="down" onclick="down(this)"></div>
+        <div class="del" onclick="del(this)"><span class='icon icon-shanchu' style="display:inline-block;width:100%;height:100%;line-height:70%;text-align:center;"></span></div><div class="up" onclick="up(this)"><span class='icon icon-shangyi' style="display:inline-block;width:100%;height:100%;line-height:70%;text-align:center;"></span></div><div class="down" onclick="down(this)"><span class='icon icon-shangyi' style="display:inline-block;width:100%;height:50%;line-height:70%;text-align:center; transform:rotate(180deg);-webkit-transform:rotate(180deg)"></span></div>
     </div> 
 </script>
 <script type="text" id="example_url_input">
@@ -134,7 +183,32 @@
         </div>
     </div>
 </script>
-
+<script type="text" id="example_txt_input">
+    <div title="弹出文字输入框" class="txt_input_div" style="display:block">
+        <div class="mask_div">
+            <div class="input_txt_div" contenteditable="true"></div>
+            <div class="toolbar">
+                <dd><span ontouchstart="txt_bold(this)" class="editorfont icon-jiacu" style="font-size:20px"></span></dd>
+                <dd><span ontouchstart="txt_size(this)" class="editorfont icon-zitidaxiao" ></span></dd>
+                <dd><span ontouchstart="txt_align(this)" class="editorfont icon-juzhong" ></span></dd>
+                <dd><span ontouchstart="txt_color(this)" class="editorfont icon-yanse" ></span></dd>
+                <div class="color_group">
+                    <dt ontouchstart="changeColor(this)"><span style="color:#000">■</span></dt>
+                    <dt ontouchstart="changeColor(this)"><span style="color:#808080">■</span></dt>
+                    <dt ontouchstart="changeColor(this)"><span style="color:#EE2207">■</span></dt>
+                    <dt ontouchstart="changeColor(this)"><span style="color:#FF8900">■</span></dt>
+                    <dt ontouchstart="changeColor(this)"><span style="color:#37B549">■</span></dt>
+                    <dt ontouchstart="changeColor(this)"><span style="color:#157FF7">■</span></dt>
+                    <dt ontouchstart="changeColor(this)"><span style="color:#B14EBB">■</span></dt>
+                 </div>
+            </div>
+            <div class="btn_div" style="padding-top: 5px">
+                <div class="cancle" onclick="cancle(this)">取消</div>
+                <div class="ok" onclick="input_txt_ok(this)">确定</div>
+            </div>
+        </div>
+    </div>
+</script>
 <script type="text" id="dialog_confirm">
     <div class="weui_dialog_confirm" id="dialog1">
         <div class="weui_mask"></div>
@@ -166,219 +240,17 @@
         <a href="javascript:;">取消</a>
     </div>
 </div>
-<!-- //编辑器 -->    
-<div id='text-input' style="position: fixed; top: 0; left: 0; bottom: 0; right: 0; background: #333; display:none;">
-    <header class="m-topbarbox" id="m-topbarbox">
-        <div class="m-topbar">
-            <div class="m-tlebox">
-                <h1>
-                    <span>文字编辑</span>
-                </h1>
-            </div>
-        </div>
-    </header>
-    <div class="m-pagecont">
-        <div class="txtEdit">
-            <h1>文本编辑已支持段落，用户可使用回车，空格来调整</h1>
-        </div>
-        <div class="txtEditBox-menu fixed">
-            <ul>
-                <li class="bold">
-                    <a href="#"></a>
-                </li>
-                <li class="tilt">
-                    <a href="#"></a>
-                </li>
-                <li class="increase">
-                    <a href="#"></a>
-                </li>
-                <li class="reduce">
-                    <a href="#"></a>
-                </li>
-                <!-- 文字颜色 -->    
-                <li class="fontColor">
-                    <a href="#"></a>
-                    <s style="background-color:rgb(0,0,0);"></s>
-                    <i style="display: none;"><b></b></i> 
-                    <div class="pop-fontColor" style="display: none;">
-                        <span class="bg1"></span>
-                        <span class="bg2"></span>
-                        <span class="bg3"></span>
-                        <span class="bg4"></span>
-                        <span class="bg5"></span>
-                        <span class="bg6"></span>
-                        <span class="bg7"></span>
-                        <span class="bg8"></span>
-                        <span class="bg9"></span>
-                        <span class="bg10"></span>
-                        <span class="bg11"></span>
-                        <span class="bg12"></span>
-                        <span class="bg13"></span>
-                        <span class="bg14"></span>
-                        <span class="bg15"></span>
-                        <span class="bg16"></span>
-                        <span class="bg17"></span>
-                        <span class="bg18"></span>
-                        <span class="bg19"></span>
-                        <span class="bg20"></span>
-                        <span class="bg21"></span>
-                        <span class="bg22"></span>
-                        <span class="bg23"></span>
-                        <span class="bg24"></span>
-                        <span class="bg25"></span>
-                        <span class="bg26"></span>
-                        <span class="bg27"></span>
-                        <span class="bg28"></span>
-                        <span class="bg29"></span>
-                        <span class="bg30"></span>
-                    </div>
-                </li>
-                <!-- 文字居中 -->    
-                <li class="alignL" id="align">
-                    <a href="#"></a>
-                    <i style="display: none;"><b></b></i> 
-                    <div class="pop-align" style="display: none;">
-                        <ul>
-                            <li class="alignL" id="alignL"></li>
-                            <li class="alignC" id="alignC"></li>
-                            <li class="alignR" id="alignR"></li>
-                        </ul>
-                    </div>
-                </li>
-                <!-- 边框 -->    
-                <li class="jamb">
-                    <a href="#" style="background-color:rgba(255,255,255,0);"></a>
-                    <i style="display: inline;">
-                        <b></b>
-                    </i>
-                </li>
-                <!-- 背景颜色 -->    
-                <li class="bgColor">
-                    <a href="#"></a>
-                    <i style="display: none;">
-                        <b></b>
-                    </i>
-                    <div class="pop-bgColor" style="display: none;">
-                        <span class="bg1"></span>
-                        <span class="bg2"></span>
-                        <span class="bg3"></span>
-                        <span class="bg4"></span>
-                        <span class="bg5"></span>
-                        <span class="bg6"></span>
-                        <span class="bg7"></span>
-                        <span class="bg8"></span>
-                        <span class="bg9"></span>
-                        <span class="bg10"></span>
-                        <span class="bg11"></span>
-                        <span class="bg12"></span>
-                        <span class="bg13"></span>
-                        <span class="bg14"></span>
-                        <span class="bg15"></span>
-                        <span class="bg16"></span>
-                        <span class="bg17"></span>
-                        <span class="bg18"></span>
-                        <span class="bg19"></span>
-                        <span class="bg20"></span>
-                        <span class="bg21"></span>
-                        <span class="bg22"></span>
-                        <span class="bg23"></span>
-                        <span class="bg24"></span>
-                        <span class="bg25"></span>
-                        <span class="bg26"></span>
-                        <span class="bg27"></span>
-                        <span class="bg28"></span>
-                        <span class="bg29"></span>
-                        <span class="bg30"></span>
-                    </div>
-                </li>
-            </ul>
-        </div>
-        <div class="txtEditBox">
-            <div class="m-zdbg"></div>
-            <!-- 边框样式 -->    
-            <div class="pop-borderEdit" style="display: none;">
-                <div class="boderEdit">
-                    <ul class="focus fixed" id="boderEdit">
-                        <li class="none" date-bdindex="0">无</li>
-                        <li class="solid" date-bdindex="1"></li>
-                        <li class="dashed" date-bdindex="2"></li>
-                        <li class="dotted" date-bdindex="3"></li>
-                        <li class="bdStyle4" date-bdindex="8"></li>
-                        <li class="bdStyle5" date-bdindex="9"></li>
-                        <li class="bdStyle6" date-bdindex="10"></li>
-                        <li class="bdStyle7" date-bdindex="11"></li>
-                        <li class="bdStyle8" date-bdindex="12"></li>
-                        <li class="bdStyle9" date-bdindex="13"></li>
-                        <li class="bdStyle10" date-bdindex="14"></li>
-                        <li class="bdStyle11" date-bdindex="15"></li>
-                        <li class="bdStyle12" date-bdindex="16"></li>
-                        <li class="bdStyle13" date-bdindex="17"></li>
-                        <li class="bdStyle14" date-bdindex="18"></li>
-                    </ul>
-                </div>
-                <div class="bordCorlor" style="">
-                    <ul class="slide fixed" id="bordCorlor">
-                        <li class="bg1"></li>
-                        <li class="bg2"></li>
-                        <li class="bg3"></li>
-                        <li class="bg4"></li>
-                        <li class="bg5"></li>
-                        <li class="bg6"></li>
-                        <li class="bg7"></li>
-                        <li class="bg8"></li>
-                        <li class="bg9"></li>
-                        <li class="bg10"></li>
-                        <li class="bg11"></li>
-                        <li class="bg12"></li>
-                        <li class="bg13"></li>
-                        <li class="bg14"></li>
-                        <li class="bg15"></li>
-                        <li class="bg16"></li>
-                        <li class="bg17"></li>
-                        <li class="bg18"></li>
-                        <li class="bg19"></li>
-                        <li class="bg20"></li>
-                        <li class="bg21"></li>
-                        <li class="bg22"></li>
-                        <li class="bg23"></li>
-                        <li class="bg24"></li>
-                        <li class="bg25"></li>
-                        <li class="bg26"></li>
-                        <li class="bg27"></li>
-                        <li class="bg28"></li>
-                        <li class="bg29"></li>
-                        <li class="bg30"></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="txtEditBox-cnt">
-                <textarea class="EditResult" style="font-weight:400;font-style:normal;font-size:1.6rem;color:rgb(0,0,0);text-align:left;background-color:rgb(255,255,255);border-style:solid;border-width:1px;padding: 10px;border-color:rgb(0,0,0);line-height:180%;" id="EditResult" placeholder="这里输入文本"></textarea>
-            </div>
-        </div>
-        <div class="btn_div" style="padding-top: 5px;position: absolute; bottom: 70px; left: 50%; margin-left: -100px;">
-            <div class="cancle" onclick="cancle(this)">取消</div>
-            <div class="ok" onclick="input_txt_ok(this)">确定</div>
-        </div>
-        <input type="hidden" value="" id="bold">    
-        <input type="hidden" value="" id="italic">    
-        <input type="hidden" value="" id="fontsize">    
-        <input type="hidden" value="" id="fontscolor">    
-        <input type="hidden" value="" id="position">    
-        <input type="hidden" value="" id="border">    
-        <input type="hidden" value="" id="bordercolor">    
-        <input type="hidden" value="" id="backgroundcolor"></div>
-    <div class="ui-toast" id="j-toast-default">
-        <div class="toast-cont">默认的Toast通知</div>
-    </div>
-</div>
-<script src="js/zepto.min.js"></script>
-<script src="js/noticeJs.js"></script>
-<script type="text/javascript" src="js/miniEditor.js?v=3.1.3"></script>
+<!-- //编辑器 -->
+<script src="js/jquery.min.js"></script>
 
 <script type="text/javascript">
 $().ready(function(){
    var example_add = $("#example_add").html();
-   $("<div>"+example_add+"</div>").appendTo("#cont") 
+   $("<div>"+example_add+"</div>").appendTo("#cont");
+   $(".music-btn").click(function(){
+        console.log(this)
+        $(".music").show(200);
+   }); 
 });
 var example_add = $("#example_add").html();
 var example_img = $("#example_img").html();
@@ -404,6 +276,44 @@ function getLocalId(){
 function callTips(txt){
     $(document.body).append('<style>.new_tips{z-index:301;position:fixed;width:150px;border-radius:30px;line-height:40px;margin:0 auto;left:0;right:0;bottom:100px; background-color: rgba(0,0,0,0.7); color:#FFF;text-align:center;font-size:18px}</style><div class="new_tips">'+txt+'</div>');setTimeout(function () {$('.new_tips').remove();}, 2000);
 }
+function del(obj) {
+    var dialog_confirm = $("#dialog_confirm").html();
+    var objParentTR = $(obj).parent().parent();
+    objParentTR.append(dialog_confirm); location.hash='#open';scrollAc(1);
+}
+function del_ok(obj){
+    var src = "";
+    if($('#dialog1').parent().find(".upload_img")){ //如果删除图片区域
+        src = $('#dialog1').parent().find(".upload_img").attr("src");
+     //如果是封面
+        if($(".title").css("background").indexOf(src)>0)$(".title").css( "background",'#FFF');
+
+        $('#dialog1').parent().remove(); location.hash='';
+        getLocalId(); //重构images.localId
+    }
+}
+function up(obj) {
+    var objParentTR = $(obj).parent().parent();
+    var prevTR = objParentTR.prev();
+    if (prevTR.length > 0) {
+        prevTR.insertAfter(objParentTR);
+        $("html,body").animate({scrollTop:objParentTR.offset().top-10},1000);//1000是ms,
+        getLocalId(); //重构images.localId
+    } else {
+        return;
+    }
+}
+function down(obj) {
+    var objParentTR = $(obj).parent().parent();
+    var nextTR = objParentTR.next();
+    if (nextTR.length > 0) {
+        nextTR.insertBefore(objParentTR);
+        $("html,body").animate({scrollTop:objParentTR.offset().top-10},1000);//1000是ms,
+        getLocalId(); //重构images.localId
+    } else {
+        return;
+    }
+}
 //点击添加按钮，出现三个子按钮
 function show_annu(o) {
     $(o).hide();
@@ -417,7 +327,6 @@ function add_img(o){
 }
 //获取图片
 if ( typeof(FileReader) === 'undefined' ){ 
-
     $('.photo-txt').html("抱歉，你的浏览器不支持 FileReader，请使用现代浏览器操作！"); 
     $("#file").attr( 'disabled','disabled' ); 
 
@@ -436,33 +345,35 @@ function imgSub(o){
         alert('没有选择图片！');
 
     var html = imghtml.replace("$IMG$", imgPath);
-    var html = "<div class='group_item'>"+html + example_add+"</div>";
-    if(imghtml!='')$(html).appendTo(obj);              
+    var str  = "<div class='group_item'>"+ html+example_add +"</div>";
+    if(imghtml!='')$(str).appendTo(obj);              
         getLocalId(); //重构images.localId
 
     $('#uploadImg').hide(200)
 }
 //========================================================
  //点击添加文本框
-function add_txt(){
-    $("#EditResult").val('').attr('style','font-weight:400;font-style:normal;font-size:1.6rem;color:rgb(0,0,0);text-align:left;background-color:rgb(255,255,255);border-style:solid;border-width:1px;padding: 10px;border-color:rgb(0,0,0);line-height:180%;');
-    $("#text-input").show();
-
+function add_txt(o){
+    $(o).parent().parent().parent().parent().after("<div class='group_item'>"+example_text+example_add+example_txt_input+"</div>");
+    location.hash="#open";
+}
+//点击添加文本框出现输入框
+function opentextdiv(o){
+    $(o).parent().parent().children(".txt_input_div").show();
+    location.hash="#open";
 }
  //文本框“确定”
-function input_txt_ok(){
+function input_txt_ok(o){
     //判断条件
-    var input_txt_div=$('#EditResult').val();
-    console.log(input_txt_div)
+    var input_txt_div=$(o).parent().parent().children(".input_txt_div").text();
     if(input_txt_div==''){callTips("请输入文字！");return false;}
-    $(".text-input").hide();
+    $(".txt_input_div").hide();
     location.hash="";
+    var the_txt = $(o).parent().parent().parent().parent().children(".newtext").children(".p");
     //获取样式
-    var style = $("#EditResult").attr("style");
-    var html = example_text.replace("$text$", input_txt_div);
-    var res = html.replace("$textStyle$", style);
-    $("#cont").append("<div class='group_item'>"+res+example_add+"</div>");
-    $("#text-input").hide(300);
+    var style = $(o).parent().parent().children(".input_txt_div").attr("style");
+    the_txt.attr("style",style);
+    the_txt.html($(o).parent().parent().children(".input_txt_div").html());
     jinzhi = 1 ;
 }
 //=============================================================================
@@ -470,7 +381,7 @@ function input_txt_ok(){
 function add_link(o){
     var timestamp = Date.parse(new Date()); //时间戳
     $(o).parent().parent().parent().parent().after("<div class='group_item'>"+example_link+example_add+example_url_input+"</div>");
-    location.hash="#open";scrollAc(1);
+    location.hash="#open";
 }    
 //点其它地方隐藏三个子按钮
 var menu = $('.add');
@@ -519,206 +430,51 @@ function readFile(){
         $('#img').attr('src',this.result); 
     } 
 } 
+
+//====================================================================
+//文本框工具
+    // 加粗
+    function txt_bold(o){
+        var bold = $(o).css("color"); 
+        if(bold=='rgb(255, 102, 0)'){ //取消
+            $(o).css("color","rgb(131,131,131)");
+            $(o).parent().parent().parent().children('.input_txt_div').css("font-weight","normal");
+        }else{ //应用
+            $(o).css("color","rgb(255, 102, 0)");
+             $(o).parent().parent().parent().children('.input_txt_div').css("font-weight","bold");
+       }
+    }   
+    function txt_size(o){ //文字大小
+        var ziti = $(o).css("color"); 
+        if(ziti=='rgb(255, 102, 0)'){
+            $(o).css("color","rgb(131,131,131)");
+            $(o).parent().parent().parent().children('.input_txt_div').css("font-size","14px");
+       }else{
+            $(o).css("color","rgb(255, 102, 0)");
+             $(o).parent().parent().parent().children('.input_txt_div').css("font-size","16px");
+       }
+    }
+    function txt_align(o){ //文字对齐
+        var center = $(o).css("color"); 
+        if(center=='rgb(255, 102, 0)'){
+            $(o).css("color","rgb(131,131,131)");
+            $(o).parent().parent().parent().children('.input_txt_div').css("text-align","left");
+        }else{
+            $(o).css("color","rgb(255, 102, 0)");
+            $(o).parent().parent().parent().children('.input_txt_div').css("text-align","center");
+       }
+    } 
+    function txt_color(o){ //文字颜色
+        var color = $(o).css("color"); 
+        $(o).parent().parent().children(".color_group").toggle();
+    } 
+    function changeColor(o){ //选择文字颜色
+        var color = $(o).children("span").css("color"); 
+        //改变色盘的颜色
+        $(o).parent().parent().find(".icon-color").css("color",color);
+        $(o).parent().parent().parent().children('.input_txt_div').css("color",color);
+    }
 </script>
 <!-- mimeditor -->
-<script type="text/javascript">
-    function IsPC() {   //判断是否是PC
-        var userAgentInfo = navigator.userAgent;
-        var Agents = ["Android", "iPhone","SymbianOS", "Windows Phone", "iPad", "iPod"];
-        var flag = true;
-        for (var v = 0; v < Agents.length; v++) {
-            if (userAgentInfo.indexOf(Agents[v]) > 0) {
-                flag = false;
-                break;
-            }
-        }
-        return flag;
-    }
-    var start = "mousedown";
-    var move = "mousemove";
-    var end = "mouseup";
-    var click = "click";
-    if(IsPC()){
-        start = "mousedown";
-        move = "mousemove";
-        end = "mouseup";
-    }else{
-        start = "touchstart";
-        move = "touchmove";
-        end = "touchend";
-    }
-</script>
-<script type="text/javascript">
-        var x = 0;
-        var touche;
-        var focus = $('.focus');
-        var cwz=0;
-        var num=$(".boderEdit li").length;
-        var wd=num*40+(num-1)*20-40;
-        var mouseleft1 = false;
-        $('.boderEdit').on(end,function(){
-            mouseleft1 = false;
-        })
-        $('.boderEdit').on(start,function(){
-            if(IsPC()){
-                touche = event;
-                mouseleft1 = true;
-            }else{
-                touche = event.touches[0];
-                mouseleft1 = true;
-            }
-            x=touche.clientX;
-            cwz = focus.attr('offsetLeft');
-        });
-        $('.boderEdit').on(move,function(){
-            if(IsPC()){
-                touche = event;
-            }else{
-                touche = event.touches[0];
-            }
-            var curLeft=cwz+touche.clientX-x;
-            if(touche.clientX-x<0 && mouseleft1){
-                //右移动
-                if(curLeft>-wd){
-                    $('.focus').attr('style','position: absolute;left:'+(cwz+touche.clientX-x)+'px');
-                }else{
-                    console.info("最右边");
-                }
-            }else if(touche.clientX-x>0  && mouseleft1){
-                if(curLeft<10 && curLeft>-wd){
-                    $('.focus').attr('style','position: absolute;left:'+(cwz+touche.clientX-x)+'px');
-                }else{
-                    console.info("最左边");
-                    $('.focus').attr('style','position: absolute;left:7px');
-                    return 0;
-                }
-
-            }
-            event.preventDefault();
-        });
-
-        var s = 0;
-        var stouche;
-        var slide = $('.slide');
-        var swz=0;
-        var snum=$(".bordCorlor li").length;
-        var swd=snum*30+(snum-1)*20-30;
-        var mouseleft = false;
-        $('.bordCorlor').on(end,function(){
-            mouseleft = false;
-        })
-        $('.bordCorlor').on(start,function(){
-            if(IsPC()){
-                stouche = event;
-                if(stouche.button == 0){
-                    mouseleft = true;
-                }               
-            }else{
-                stouche = event.touches[0];
-                mouseleft = true;
-            }
-            s=touche.clientX;
-            swz = slide.attr('offsetLeft');
-        });
-        $('.bordCorlor').on(move,function(){
-            if(IsPC()){
-                stouche = event;
-            }else{
-                stouche = event.touches[0];
-            }
-            var scurLeft=swz+stouche.clientX-s;
-            if(stouche.clientX-s<0 && mouseleft){
-                //右移动
-                if(scurLeft>-swd){
-                    $('.slide').attr('style','position: absolute;left:'+(swz+stouche.clientX-s)+'px');
-                }else{
-                    console.info("最右边");
-                }
-            }else if(stouche.clientX-s>0 && mouseleft){
-                if(scurLeft<10 && scurLeft>-swd){
-                    $('.slide').attr('style','position: absolute;left:'+(swz+stouche.clientX-s)+'px');
-                }else{
-                    console.info("最左边");
-                    $('.slide').attr('style','position: absolute;left:7px');
-                    return 0;
-                }
-
-            }
-            event.preventDefault();
-        });
-</script>
-    <script type="text/javascript">
-        $(".txtEditBox-menu li a").bind('click',function(){
-            var c = this;
-            $(c).attr('style','background-color:rgba(111,111,111,0.5);');
-            setTimeout(function(){
-                $(c).attr('style','background-color:rgba(255,255,255,0);');
-            },300)
-            if($(this).parent().hasClass("jamb")){
-                $(".pop-borderEdit").toggle();
-//              $(".txtEditBox-cnt").addClass("Editbg1");
-//              $(".EditResult").addClass("pad-10 EditBdStyle6 EditBdColor1 EditColor bold");
-            }else{
-//              $(".txtEditBox-cnt").removeClass("Editbg1");
-//              $(".EditResult").removeClass("pad-10 EditBdStyle6 EditBdColor1 EditColor bold");
-                $(".pop-borderEdit").hide();
-            }
-            $(this).parent().siblings("li").find("i").hide();
-            $(this).parent().siblings("li").find("div").hide();
-            $(this).parent().find("i").toggle();
-            $(this).parent().find("div").toggle();
-            
-        });
-        var c = '0';
-        $('.bgColor,.align,.fontColor').on(click,function(){
-                var cclass = $(this).attr('class');
-                console.info(cclass + '' +c);
-                if(c == '0'){
-                    $('.m-zdbg').toggleClass('active1');
-                }else{
-                    if(c != cclass){
-                        
-                    }else{
-                        $('.m-zdbg').toggleClass('active1');
-                    }
-                }
-                c = cclass;
-            });
-        $('.m-zdbg').on(click,function(){
-            $('.m-zdbg').toggleClass('active1');
-            $('.pop-bgColor,.pop-align,.pop-fontColor').hide();
-            $('.txtEditBox-menu li i').hide();
-        })
-        $("#align a").bind(click,function(){
-            var c = this;
-            $(c).attr('style','background-color:rgba(111,111,111,0.5);');
-            setTimeout(function(){
-                $(c).attr('style','background-color:rgba(255,255,255,0);');
-            },100)
-            if($(this).parent().hasClass("alignL")){
-                $(".pop-align ul li.alignL").hide();
-                $(".pop-align ul li.alignC").show();
-                $(".pop-align ul li.alignR").show();
-            }else if($(this).parent().hasClass("alignC")){
-                $(".pop-align ul li.alignL").show();
-                $(".pop-align ul li.alignC").hide();
-                $(".pop-align ul li.alignR").show();
-            }else if($(this).parent().hasClass("alignR")){
-                $(".pop-align ul li.alignL").show();
-                $(".pop-align ul li.alignC").show();
-                $(".pop-align ul li.alignR").hide();
-            }
-        });
-        $(".pop-align li").bind(click,function(){
-            if($(this).hasClass("alignL")){
-                $("#align").attr("class","alignL");
-            }else if($(this).hasClass("alignC")){
-                $("#align").attr("class","alignC");
-            }else if($(this).hasClass("alignR")){
-                $("#align").attr("class","alignR");
-            }
-            $(".pop-align").hide();
-        });
-    </script>
 </body>
 </html>
