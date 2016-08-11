@@ -24,14 +24,15 @@ background: linear-gradient(rgba(0, 0, 0, 0.5),rgba(0, 0, 0, 0));
     }
     .add_btn_group{display: none;}
     .btn_div,.addico{
-    width:200px;
-    margin:0 auto;
-    color:#04BE02;
-    font-size:13px;
+   width: 200px;
+    margin: 0 auto;
+    color: #04BE02;
+    font-size: 13px;
     line-height: 15px;
     display: -webkit-box;
-    display: -webkit-flex; /* Safari */
+    display: -webkit-flex;
     display: flex;
+    
     }
     .btn_div div,.addico div{
         text-align: center;

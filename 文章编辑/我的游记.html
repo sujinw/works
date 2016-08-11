@@ -436,6 +436,7 @@ wx.ready(function(){
     //点击添加图片框
    function add_img(o){
     var obj=$(o).parent().parent().parent().parent();
+    console.log(obj)
     var imghtml='';
      wx.chooseImage({
       success: function (res) {     
